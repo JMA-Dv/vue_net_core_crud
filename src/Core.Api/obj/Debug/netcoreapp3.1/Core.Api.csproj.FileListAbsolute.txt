@@ -66,3 +66,9 @@ C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\obj\Debug\netcoreapp3.1\Core.Ap
 C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\obj\Debug\netcoreapp3.1\Core.Api.genruntimeconfig.cache
 C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\Core.DTOs.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\Service.Services.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\Service.Services.pdb
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\Core.DTOs.pdb
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.Api\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
