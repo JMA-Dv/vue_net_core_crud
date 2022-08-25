@@ -1,4 +1,5 @@
 ﻿using Core.Model;
+using Core.Model.Products;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;

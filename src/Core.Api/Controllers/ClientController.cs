@@ -1,8 +1,7 @@
 ﻿using Core.DTOs.Client;
-using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Service.Services.Clients;
-using Service.Services.Common;
+using Service.Services.Common.Pagination;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace Core.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginatedList<ClientDto>>> GetAll(int page, int take = 20) => await _client.GetAllPaginated(page,take);
+        public async Task<ActionResult<PaginatedList<ClientDto>>> GetAll(int page, int take = 20) => await _client.GetAllPaginated(page, take);
         
 
         [HttpGet("{id}")]
@@ -47,9 +46,10 @@ namespace Core.Api.Controllers
                 );
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<ClientDto>> UpdateClient(ClientCreateDto client, int id)
+        public async Task<ActionResult> UpdateClient(ClientUpdateDto client, int id)
         {
-            return await _client.Update(client,id);   
+            await _client.Update(client,id);
+            return Ok();
         }
     }
 }

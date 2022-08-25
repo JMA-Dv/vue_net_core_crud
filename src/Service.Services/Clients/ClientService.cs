@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Service.Services.Common;
 using Service.Services.Common.Extensions;
+using Service.Services.Common.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Service.Services.Clients
 {
-    public interface IClientService: IRepository<Client,ClientCreateDto,ClientDto>
+    public interface IClientService: IRepository<ClientDto,ClientCreateDto,ClientUpdateDto>
     {
         public Task<PaginatedList<ClientDto>> GetAllPaginated(int page, int take = 20);
     }
@@ -29,7 +30,7 @@ namespace Service.Services.Clients
             _mapper = mapper;
         }
 
-        public async Task<Client> Create(ClientCreateDto model)
+        public async Task<ClientDto> Create(ClientCreateDto model)
         {
             var client = new Client()
             {
@@ -37,7 +38,7 @@ namespace Service.Services.Clients
             };
             await _context.Clients.AddAsync(client);
             await _context.SaveChangesAsync();
-            return client;
+            return _mapper.Map<ClientDto>(client);
         }
 
         public async Task Delete(int id)
@@ -66,16 +67,15 @@ namespace Service.Services.Clients
             return _mapper.Map<ClientDto>(result);
         }
 
-
-        public async Task<ClientDto> Update(ClientCreateDto model, int id)
+        public async Task Update(ClientUpdateDto model, int id)
         {
             var client = await _context.Clients.FindAsync(id);
 
             client.Name = model.Name;
-
             await _context.SaveChangesAsync();
-            return _mapper.Map<ClientDto>(client);
         }
+
+        
     }
 }
 

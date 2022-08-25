@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Core.DTOs.Client;
+using Core.DTOs.Orders;
+using Core.DTOs.Products;
 using Core.Model;
-using Service.Services.Common;
+using Core.Model.Products;
+using Service.Services.Common.Pagination;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +18,17 @@ namespace Core.Api.Config
         {
             CreateMap<Client, ClientDto>();
             CreateMap<PaginatedList<Client>,PaginatedList<ClientDto>>();
+            
+            CreateMap<PaginatedList<Order>,PaginatedList<OrderDto>>();
+            CreateMap<Order, OrderDto>();
+
+            CreateMap<OrderDetail, OrderDetailDto>();
+
+            CreateMap<PaginatedList<Product>,PaginatedList<ProductDto>>();
+            CreateMap<ProductCreateDto, Product>();
+            CreateMap<Product, ProductDto>();
+
+
         }
     }
 }

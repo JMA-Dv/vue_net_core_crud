@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Model
+namespace Core.Model.Orders
 {
     public class Order
     {
@@ -12,8 +12,6 @@ namespace Core.Model
         public decimal Iva { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
-
-        public IEnumerable<OrderDetail> Items { get; set; }
 
     }
 }

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service.Services
+namespace Service.Services.Common
 {
-    public interface IRepository<T,P,Z>
+    public interface IRepository<T,Z,P> 
     {
-        public Task<T> Create(P model);
-        public Task<Z> Update(P model, int id);
-        public Task<Z> GetById(int id);
+        public Task<T> Create(Z model);
+        public Task Update(P model, int id);
+        public Task<T> GetById(int id);
         public Task Delete(int id);
         
         

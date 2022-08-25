@@ -1,4 +1,5 @@
 ﻿using Core.Model;
+using Core.Model.Products;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data.Config;
 using System;

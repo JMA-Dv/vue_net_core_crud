@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Service.Services.Common
+namespace Service.Services.Common.Pagination
 {
     public class PaginatedList<T> where T: class
     {

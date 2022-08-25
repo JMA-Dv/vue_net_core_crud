@@ -12,6 +12,11 @@ namespace Core.DTOs.Client
 
     }
 
+    public class ClientUpdateDto
+    {
+        [Required]
+        public string Name { get; set; }
+    }
     public class ClientDto
     {
         public int ClientId { get; set; }
