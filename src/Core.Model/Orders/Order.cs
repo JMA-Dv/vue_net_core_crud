@@ -13,5 +13,7 @@ namespace Core.Model.Orders
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
 
+        public IEnumerable<OrderDetail> Items { get; set; }
+
     }
 }

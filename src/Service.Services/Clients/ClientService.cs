@@ -48,9 +48,7 @@ namespace Service.Services.Clients
                 {
                     ClientId = id
                 });
-
             await _context.SaveChangesAsync();
-
         }
 
         public async Task<PaginatedList<ClientDto>> GetAllPaginated(int page, int take)

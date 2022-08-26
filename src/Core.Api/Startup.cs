@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Persistence.Data;
 using Service.Services.Clients;
+using Service.Services.Orders;
 using Service.Services.Products;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace Core.Api
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddControllers();
         }
 

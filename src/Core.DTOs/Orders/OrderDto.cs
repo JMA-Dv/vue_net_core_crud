@@ -5,14 +5,6 @@ using System.Text;
 
 namespace Core.DTOs.Orders
 {
-
-    public class OrderCreateDto
-    {
-        public int ClientId { get; set; }
-        public IEnumerable<OrderDetailCreateDto> Items { get; set; }
-    }
-   
-
     public class OrderDto
     {
         public int OrderId { get; set; }
@@ -23,6 +15,15 @@ namespace Core.DTOs.Orders
         public decimal Total { get; set; }
         public IEnumerable<OrderDetailDto> Items { get; set; }
     }
+
+    public class OrderCreateDto
+    {
+        public int ClientId { get; set; }
+        public IEnumerable<OrderDetailCreateDto> Items { get; set; }
+    }
+   
+
+    
 
 
 
