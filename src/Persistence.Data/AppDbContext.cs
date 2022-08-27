@@ -1,15 +1,18 @@
 ﻿using Core.Model;
+using Core.Model.Identity;
 using Core.Model.Orders;
 using Core.Model.Products;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data.Config;
+using Persistence.Data.Config.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Persistence.Data
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext: IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
@@ -30,6 +33,8 @@ namespace Persistence.Data
             new ProductConfig(modelBuilder.Entity<Product>());
             new OrderDetailConfig(modelBuilder.Entity<OrderDetail>());
             new OrderConfig(modelBuilder.Entity<Order>());
+            new RoleConfig(modelBuilder.Entity<ApplicationRole>());
+            new UserConfig(modelBuilder.Entity<ApplicationUser>());
 
         }
     }

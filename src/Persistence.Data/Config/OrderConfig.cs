@@ -1,5 +1,4 @@
-﻿using Core.Model;
-using Core.Model.Orders;
+﻿using Core.Model.Orders;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
