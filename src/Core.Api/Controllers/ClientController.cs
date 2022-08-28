@@ -1,4 +1,5 @@
 ﻿using Core.DTOs.Client;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Services.Clients;
 using Service.Services.Common.Pagination;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Core.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase

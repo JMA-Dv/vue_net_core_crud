@@ -1,4 +1,5 @@
 ﻿using Core.DTOs.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Services.Common.Pagination;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Core.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
