@@ -13,6 +13,7 @@ using Persistence.Data;
 using Service.Services.Clients;
 using Service.Services.Orders;
 using Service.Services.Products;
+using Service.Services.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace Core.Api
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
+                options.User.RequireUniqueEmail = true;
 
             });
 
@@ -50,6 +52,7 @@ namespace Core.Api
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IUserService,UserService>();
             services.AddControllers();
         }
 

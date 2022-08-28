@@ -3,6 +3,7 @@ using Core.Model.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Service.Services.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,29 +15,25 @@ namespace Core.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
 
-        public UserController(UserManager<ApplicationUser> userManager)
+        public UserController(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
         [HttpPost("signIn")]
         public async Task<IActionResult> SignIn(UserSignInDto model)
         {
-            var response = await _userManager.CreateAsync(new ApplicationUser
-            {
-                UserName = model.Email,
-                Email = model.Email
-            },model.Password);//the password will be encripted by itself
-
-            if (!response.Succeeded)
-            {
-                throw new Exception("Could not create user");
-            }
-
+            await _userService.SignUpAsync(model);
             return Ok();
+        }
 
+        [HttpPost("logIn")]
+        public async Task<IActionResult> LogIn(UserLogInDto model)
+        {
+            await _userService.LogInAsync(model);
+            return Ok();
         }
     }
 }
