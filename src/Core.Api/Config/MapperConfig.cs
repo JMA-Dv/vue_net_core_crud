@@ -35,6 +35,7 @@ namespace Core.Api.Config
             CreateMap<Product, ProductDto>();
 
 
+
         }
     }
 }

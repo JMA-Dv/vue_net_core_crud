@@ -26,10 +26,18 @@ namespace Core.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<OrderDto>> CreateOrderAsync(OrderCreateDto model) => await _service.CreateOrderAsync(model);
+        public async Task<ActionResult<OrderDto>> CreateOrderAsync(OrderCreateDto model)
+        {
+            
+            return    await _service.CreateOrderAsync(model);
+
+        }
 
         [HttpGet]
         public async Task<ActionResult<PaginatedList<OrderDto>>> GetPaginatedAsync(int page = 1, int take = 20)
-            => await _service.GetOrderPaginatedAsync(page, take);
+        {
+            var identity = this.User.Identity;
+            return await _service.GetOrderPaginatedAsync(page, take);
+        }
     }
 }

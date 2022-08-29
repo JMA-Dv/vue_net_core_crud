@@ -12,6 +12,9 @@ namespace Core.DTOs.User
 
         [Required]
         public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
 
     }
 }

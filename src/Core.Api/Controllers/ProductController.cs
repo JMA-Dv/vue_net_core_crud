@@ -37,6 +37,7 @@ namespace Core.Api.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProduct(int id, ProductUpdateDto model)
         {
+            
             await _productService.Update(model,id);
             return Ok();
         }

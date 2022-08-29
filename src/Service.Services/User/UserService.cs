@@ -3,6 +3,7 @@ using Core.DTOs.User;
 using Core.Model.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Service.Services.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -75,13 +76,20 @@ namespace Service.Services.User
 
         public async Task SignUpAsync(UserSignInDto model)
         {
-            var response = await _userManager.CreateAsync(new ApplicationUser()
+
+            var user = new ApplicationUser()
             {
                 UserName = model.Email,
-                Email = model.Email
-            }, model.Password);
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName
+            };
 
-            if (!response.Succeeded)
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            await _userManager.AddToRoleAsync(user, RoleHelper.Admin);
+
+            if (!result.Succeeded)
             {
                 throw new Exception("Could not create user");
             }

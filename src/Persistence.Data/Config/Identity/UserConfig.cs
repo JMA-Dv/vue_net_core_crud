@@ -14,6 +14,8 @@ namespace Persistence.Data.Config.Identity
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId)
                 .IsRequired ();
+
+            
         }
     }
 }
