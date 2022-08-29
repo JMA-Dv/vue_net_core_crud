@@ -40,7 +40,7 @@ namespace Core.Api.Controllers
             var user = await _userService.LogInAsync(model);
             var key = _configuration.GetSection("Keys").GetValue<string>("SecretKey");
 
-            var token = _userService.GenerateToken(user, key);
+            var token = await _userService.GenerateTokenAsync(user, key);
 
 
             return Ok(token); 

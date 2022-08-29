@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Services.Clients;
+using Service.Services.Common.Helpers;
 using Service.Services.Common.Pagination;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Core.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Roles =RoleHelper.Admin + "," + RoleHelper.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase

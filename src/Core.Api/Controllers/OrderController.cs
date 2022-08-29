@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Service.Services.Common.Helpers;
 using Service.Services.Common.Pagination;
 using Service.Services.Orders;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Core.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Roles =RoleHelper.Vendor + "," + RoleHelper.User)]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase

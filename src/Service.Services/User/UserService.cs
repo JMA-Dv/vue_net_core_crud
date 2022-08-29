@@ -1,5 +1,4 @@
-﻿using AutoMapper.Configuration;
-using Core.DTOs.User;
+﻿using Core.DTOs.User;
 using Core.Model.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -17,7 +16,7 @@ namespace Service.Services.User
     {
         Task SignUpAsync(UserSignInDto model);
         Task<ApplicationUser> LogInAsync(UserLogInDto model);
-        string GenerateToken(ApplicationUser user, string key);
+        Task<string> GenerateTokenAsync(ApplicationUser user, string key);
     }
     public class UserService : IUserService
     {
@@ -30,19 +29,30 @@ namespace Service.Services.User
             _signInManager = signInManager;
         }
 
-        public string GenerateToken(ApplicationUser user,string key)
+        public async Task<string> GenerateTokenAsync(ApplicationUser user,string key)
         {
             var acciKey = Encoding.ASCII.GetBytes(key);
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            var claims = new List<Claim>
             {
-                Subject = new ClaimsIdentity(
-                    new Claim[]
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
                         new Claim(ClaimTypes.Email, user.Email),
                         new Claim(ClaimTypes.Name, user.FirstName),
                         new Claim(ClaimTypes.Surname, user.LastName)
-                    }),
+            };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            
+
+            foreach (var role in roles)
+                claims.Add(new Claim(ClaimTypes.Role,role));
+
+            var tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                
+                Subject = new ClaimsIdentity(
+                    claims
+                    ),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(acciKey),SecurityAlgorithms.HmacSha256
             )};
@@ -87,7 +97,7 @@ namespace Service.Services.User
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            await _userManager.AddToRoleAsync(user, RoleHelper.Admin);
+            await _userManager.AddToRoleAsync(user, RoleHelper.Vendor);
 
             if (!result.Succeeded)
             {

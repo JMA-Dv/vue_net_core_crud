@@ -2,7 +2,9 @@
 using Core.DTOs.Client;
 using Core.DTOs.Orders;
 using Core.DTOs.Products;
+using Core.DTOs.User;
 using Core.Model;
+using Core.Model.Identity;
 using Core.Model.Orders;
 using Core.Model.Products;
 using Service.Services.Common.Pagination;
@@ -33,9 +35,6 @@ namespace Core.Api.Config
             CreateMap<PaginatedList<Product>,PaginatedList<ProductDto>>();
             CreateMap<ProductCreateDto, Product>();
             CreateMap<Product, ProductDto>();
-
-
-
         }
     }
 }
