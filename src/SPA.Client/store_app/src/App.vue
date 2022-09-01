@@ -1,30 +1,41 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <Header></Header>
+  
+  <router-view />
+
+  <Footer></Footer>
+
 </template>
+<script>
+import Header from './components/shared/Header.vue';
+import Footer from './components/shared/Footer.vue';
+import { onMounted, ref } from 'vue';
+import { useUserStore } from './store/UserStore';
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+export default {
+  components: {
+    Header,
+    Footer
+  },
+  setup() {
+    const userStore = useUserStore()
+    const hasConfig = ref(false)
+    onMounted(async () => {
+      const res = fetch('/config', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      const data = await (await res).json();
+      data && !hasConfig.value;
 
-#nav {
-  padding: 30px;
-}
+      hasConfig.value && userStore.setConfig(data);
+    })
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+
+
+  }
 }
-</style>
+</script>
