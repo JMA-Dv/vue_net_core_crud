@@ -28,7 +28,7 @@ namespace Core.Api.Controllers
         }
 
         [HttpPost("signIn")]
-        public async Task<IActionResult> SignIn(UserSignInDto model)
+        public async Task<IActionResult> SignIn(UserSignUpDto model)
         {
             await _userService.SignUpAsync(model);
             return Ok();

@@ -14,7 +14,7 @@ namespace Service.Services.User
 {
     public interface IUserService
     {
-        Task SignUpAsync(UserSignInDto model);
+        Task SignUpAsync(UserSignUpDto model);
         Task<ApplicationUser> LogInAsync(UserLogInDto model);
         Task<string> GenerateTokenAsync(ApplicationUser user, string key);
     }
@@ -41,8 +41,6 @@ namespace Service.Services.User
             };
 
             var roles = await _userManager.GetRolesAsync(user);
-
-            
 
             foreach (var role in roles)
                 claims.Add(new Claim(ClaimTypes.Role,role));
@@ -84,7 +82,7 @@ namespace Service.Services.User
 
         
 
-        public async Task SignUpAsync(UserSignInDto model)
+        public async Task SignUpAsync(UserSignUpDto model)
         {
 
             var user = new ApplicationUser()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.DTOs.User
 {
-    public class UserSignInDto
+    public class UserSignUpDto
     {
         [Required]
         public string Email { get; set; }

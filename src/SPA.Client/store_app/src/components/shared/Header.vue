@@ -1,21 +1,18 @@
 <template>
-<section class="hero is-primary is-medium">
-  <!-- Hero head: will stick at the top -->
   <div class="hero-head">
     <nav class="navbar">
       <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item">
-            <!-- <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo"> -->
-            <h1>CRUD</h1>
+            <img src="https://bulma.io/images/bulma-type-white.png" alt="Logo">
           </a>
-          <span class="navbar-burger" data-target="navbarMenuHeroA">
+          <span class="navbar-burger" data-target="navbarMenuHeroB">
             <span></span>
             <span></span>
             <span></span>
           </span>
         </div>
-        <div id="navbarMenuHeroA" class="navbar-menu">
+        <div id="navbarMenuHeroC" class="navbar-menu">
           <div class="navbar-end">
             <a class="navbar-item is-active">
               Home
@@ -27,7 +24,7 @@
               Documentation
             </a>
             <span class="navbar-item">
-              <a class="button is-primary is-inverted">
+              <a class="button is-info is-inverted">
                 <span class="icon">
                   <i class="fab fa-github"></i>
                 </span>
@@ -40,7 +37,6 @@
     </nav>
   </div>
 
-  <!-- Hero content: will be in the middle -->
   <div class="hero-body">
     <div class="container has-text-centered">
       <p class="title">
@@ -51,10 +47,6 @@
       </p>
     </div>
   </div>
-
-  
-  
-</section>
 </template>
 
 <script>
@@ -62,8 +54,12 @@ export default {
 
 }
 </script>
+
+
+
 <style>
   .hero.is-primary{
     background-color: #2B4F6E;
   }
 </style>
+
