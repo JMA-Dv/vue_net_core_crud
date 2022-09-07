@@ -3,7 +3,8 @@
 
     <Header v-if="hasConfig"></Header>
     <div class="hero-body">
-      <div class="container ">
+      <div class="container">
+
         <router-view />
       </div>
     </div>
@@ -22,32 +23,35 @@ import { useUserStore } from './store/UserStore';
 export default {
   components: {
     Header,
-    Footer
-  },
+    Footer,
+},
   setup() {
     const userStore = useUserStore();
-    const hasConfig = ref(false);
+    const hasConfig = ref(true);
     const logIn = inject('proxies');
 
     onMounted(async () => {
       logIn();
       if (userStore.getUrl) {
-        const res = fetch('/config', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-        });
-        const data = await (await res).json();
+        // const res = fetch('/config', {
+        //   method: 'GET',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        // });
 
-        if (data) {
-          hasConfig.value = true;
-        }
+        // const data = (res !== undefined) ? await (await res).json(): res;
 
-        hasConfig.value && userStore.setConfig(data);
+        // if (data) {
+        //   hasConfig.value = true;
+        // }
+
+        // hasConfig.value && userStore.setConfig(data);
 
       }
+      return{hasConfig}
     });
+
 
   }
 }

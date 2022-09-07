@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 import { useUserStore } from '../store/UserStore'
 
 const routes = [
@@ -12,9 +11,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/LoginInRegistrer.vue')
   },
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
-    component: Home,
+    component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
     meta: {
       requiresAuth: true
     }
@@ -41,20 +40,27 @@ const router = createRouter({
 
 if (!router) throw 'This doesnt have any route'
 
+
+
 router.beforeEach((to, from, next) => {
+  if(!to.matched || to.matched.length === 0 ){
+    next({name:'LogIn'});
 
-  const token = useUserStore();
-  const requireAuth = to.matched.some(x => x.meta.requiresAuth);
-
-  if (requireAuth) {
-    if (!token.getToken) {
-      next();
-    } else {
-      next('/logIn');
-    }
-  }else{
-    next()
   }
+  const routeRequiresAuth = to.matched.some(route => route.meta.requiresAuth);  
+  const token = useUserStore(); 
+  
+
+  if(!routeRequiresAuth){
+    next();
+  }
+  if(!token.getToken){
+    console.log("entro alv ");
+    next({name:'LogIn'});
+  }else{
+    next();
+  }
+  
 
 });
 

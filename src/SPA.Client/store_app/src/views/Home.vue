@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-
+<p>........................</p>
     
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
   name: 'Home',
   setup(){
     const store = useUserStore()
-    console.log("This is not woking",store.userName);
+    console.log("Rendering home-.-.....");
     return store;
     
   }

@@ -80,7 +80,7 @@
 
             <div class="field  is-grouped-centered">
               <div class="control">
-                <button class="button is-link">Log In</button>
+                <button class="button is-link" >Sign Up</button>
               </div>
             </div>
           </form>
@@ -93,38 +93,53 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 export default {
   setup() {
     // const email = ref('');
     // const firstName = ref('');
     // const lastName = ref('');
-    const errorMessage = ref('');
-    const tab = ref('login')
-
+    const errorMessage = ref({type:'', error:''});
+    const tab = ref('login');
+    const CREDENTIALS_ERROR = "The credentials are not correct"
+    
     const user = ref({
       email: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      password:''
     })
 
+    onMounted(()=>{
+      console.log("Rendering lgin")
+    })
+
+    
+    
     const processForm = () => {
-      if (!user.value.email.value.trim()) {
-        errorMessage.value = "EMAIL";
+
+      if (!user.value.email.trim()) {
+        errorMessage.value.type = "EMAIL";
+        errorMessage.value.error = CREDENTIALS_ERROR;
         return;
       }
 
-      if (!user.value.firstName.value.trim()) {
+      if (!user.value.firstName.trim()) {
         errorMessage.value = "FIRST_EMAIL";
         return;
       }
 
-      if (!user.value.lastName.value.trim()) {
+      if (!user.value.lastName.trim()) {
         errorMessage.value = "LAST_EMAIL";
         return;
       }
 
-      console.log(user.value)
+      if(!user.value.password || user.value.password.length < 6 ){
+        errorMessage.value.type = "PASSWORD";
+        errorMessage.value.error =CREDENTIALS_ERROR;
+      }
+
+      
     }
 
     return { processForm, user, errorMessage, tab }
