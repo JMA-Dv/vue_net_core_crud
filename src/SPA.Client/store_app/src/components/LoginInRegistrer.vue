@@ -1,5 +1,4 @@
 <template>
-
   <div class="columns is-centered">
     <div class="column is-7">
 
@@ -15,9 +14,7 @@
           </ul>
         </div>
         <Transition name="slide-fade">
-
           <form @submit.prevent="processForm" v-if="tab === 'login'">
-
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
@@ -26,26 +23,21 @@
               </div>
               <p v-if="errorMessage.type === 'EMAIL'" class="help is-danger">This email is invalid</p>
             </div>
-
             <div class="field">
               <label class="label">Password</label>
               <div class="control">
                 <input class="input" v-model="user.password" type="password" placeholder="example">
               </div>
             </div>
-
             <div class="field  is-grouped-centered">
               <div class="control">
-                <button class="button is-link">Log In</button>
+                <button class="button is-link" @click="logIn">Log In</button>
               </div>
             </div>
           </form>
         </Transition>
-
         <Transition name="slide-fade">
-
           <form @submit.prevent="processForm" v-if="tab === 'register'">
-
             <div class="field">
               <label class="label">First Name</label>
               <div class="control ">
@@ -80,7 +72,7 @@
 
             <div class="field  is-grouped-centered">
               <div class="control">
-                <button class="button is-link" >Sign Up</button>
+                <button class="button is-link" :disabled="loading" @click="signUp">Sign Up</button>
               </div>
             </div>
           </form>
@@ -93,74 +85,83 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+import { useApi } from '../services/useApi';
+
 export default {
+  
   setup() {
-    // const email = ref('');
-    // const firstName = ref('');
-    // const lastName = ref('');
-    const errorMessage = ref({type:'', error:''});
+    const errorMessage = ref({ type: '', error: '' });
     const tab = ref('login');
     const CREDENTIALS_ERROR = "The credentials are not correct"
-    
+    const api = useApi();
+    const isLoading = ref(false);
+    const useRoute = useRouter()
+
     const user = ref({
       email: '',
       firstName: '',
       lastName: '',
-      password:''
+      password: ''
     })
 
-    onMounted(()=>{
-      console.log("Rendering lgin")
-    })
-
-    
-    
     const processForm = () => {
-
       if (!user.value.email.trim()) {
         errorMessage.value.type = "EMAIL";
         errorMessage.value.error = CREDENTIALS_ERROR;
         return;
       }
 
-      if (!user.value.firstName.trim()) {
-        errorMessage.value = "FIRST_EMAIL";
-        return;
-      }
-
-      if (!user.value.lastName.trim()) {
-        errorMessage.value = "LAST_EMAIL";
-        return;
-      }
-
-      if(!user.value.password || user.value.password.length < 6 ){
+      if (!user.value.password || user.value.password.length < 6) {
         errorMessage.value.type = "PASSWORD";
-        errorMessage.value.error =CREDENTIALS_ERROR;
+        errorMessage.value.error = CREDENTIALS_ERROR;
       }
 
-      
+      if (tab.value === 'register') {
+        if (!user.value.firstName.trim()) {
+          errorMessage.value = "FIRST_EMAIL";
+          return;
+        }
+
+        if (!user.value.lastName.trim()) {
+          errorMessage.value = "LAST_EMAIL";
+          return;
+        }
+      }
     }
 
-    return { processForm, user, errorMessage, tab }
+    const signUp = async () => {
+      isLoading.value = true;
+      await api.signUp(user.value);
+      isLoading.value = false;
+    }
 
+    const logIn = async () => {
+      isLoading.value = true;
+      var response = await api.logIn(user.value);
+      isLoading.value = false;
+
+      if (response) {
+        console.log("Entro")
+        await useRoute.push('/')
+      }
+    }
+
+    return { processForm, user, errorMessage, tab, signUp, logIn, isLoading }
   }
 }
 </script>
 <style>
-/*
-  Enter and leave animations can use different
-  durations and timing functions.
-*/
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
   transition-delay: 0.4s;
-  
+
 }
 
 .slide-fade-leave-active {
   transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
-  
+
 }
 
 .slide-fade-enter-from,

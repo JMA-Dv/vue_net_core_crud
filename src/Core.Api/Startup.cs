@@ -32,13 +32,21 @@ namespace Core.Api
         }
 
         public IConfiguration Configuration { get; }
+        const string MY_CORS = "AllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: MY_CORS,
+                  builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            });
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
+            
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -64,8 +72,6 @@ namespace Core.Api
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-
-
             }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
@@ -80,7 +86,7 @@ namespace Core.Api
             });
 
 
-            services.AddControllers();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +97,7 @@ namespace Core.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(MY_CORS);
             app.UseRouting();
 
             app.UseAuthentication();

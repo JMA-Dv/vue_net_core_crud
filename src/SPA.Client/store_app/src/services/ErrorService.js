@@ -1,18 +1,29 @@
-
+import { notify } from "@kyvg/vue3-notification";
 export default class ErrorService {
   constructor() {
-    // this.initHandler();
   }
 
   static onError(error) {
+
+    console.log("🚀 ~ file: ErrorService.js ~ line 7 ~ ErrorService ~ onError ~ error", error)
+
     const response = error.response;
     if (response && response.status >= 400 && response.status < 405) {
       // You can handle this differently
-      ErrorService.sentryLogEngine(error);
+      ErrorService.sentryLogEngine(error.message);
       return false;
     }
+    
+    if (response && response.status === 500 ) {
+      console.log("🚀 ~ file: ErrorService.js ~ line 18 ~ ErrorService ~ onError ~ response", response)
+      // You can handle this differently
+      ErrorService.logRocketLogEngine(error.message);
+      console.log("entro")
+      return false;
+    }
+
     // Send Error to Log Engine e.g LogRocket
-    ErrorService.logRocketLogEngine(error);
+    // ErrorService.logRocketLogEngine(error);
   }
 
   static onWarn(error) {
@@ -48,20 +59,27 @@ export default class ErrorService {
   }
 
   static displayErrorAlert(message) {
-    Swal.fire({
-      title: "Error!",
+    notify({
+      title: "Error",
       text: message,
-      icon: "error",
-    });
+      type:'error'
+    })
+  }
+
+  static displayWarningAlert(message) {
+    notify({
+      title: "Warning",
+      text: message,
+      type:'warning'
+    })
   }
 
   static logRocketLogEngine(error) {
-    // Implement LogRocket Engine here
     console.log(error, "LogRocket");
+    this.displayErrorAlert(error);
   }
 
   static sentryLogEngine(error) {
-    // Implement Sentry Engine here
     console.log(error, "Sentry");
   }
 }

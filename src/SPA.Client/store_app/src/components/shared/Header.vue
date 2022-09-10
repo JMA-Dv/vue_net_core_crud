@@ -9,7 +9,7 @@
           <span class="navbar-burger" data-target="navbarMenuHeroB">
             <span></span>
             <span></span>
-            <span></span>
+            <span>asas</span>
           </span>
         </div>
         <div id="navbarMenuHeroC" class="navbar-menu">
@@ -24,11 +24,8 @@
               Documentation
             </a>
             <span class="navbar-item">
-              <a class="button is-info is-inverted">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
-                </span>
-                <span>Download</span>
+              <a class="button is-info is-inverted" @click="signOut">
+                <span>LogOut</span>
               </a>
             </span>
           </div>
@@ -37,21 +34,26 @@
     </nav>
   </div>
 
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <p class="title">
-        Title
-      </p>
-      <p class="subtitle">
-        Subtitle
-      </p>
-    </div>
-  </div>
+  
 </template>
 
 <script>
-export default {
+import { useRouter } from 'vue-router';
+import { useUserStore } from '../../store/UserStore';
 
+export default {
+setup(){
+  const router = useRouter();
+  const user = useUserStore()
+  const signOut =async ()=>{
+    localStorage.removeItem('token');
+    console.log(user.getIsLogged)
+    await router.push({path:'logIn'})
+
+  }
+
+  return {signOut}
+}
 }
 </script>
 

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useUserStore } from '../store/UserStore'
 
 const routes = [
   {
@@ -11,7 +10,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../components/LoginInRegistrer.vue')
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "about" */ '../views/Home.vue'),
     meta: {
@@ -48,16 +47,15 @@ router.beforeEach((to, from, next) => {
 
   }
   const routeRequiresAuth = to.matched.some(route => route.meta.requiresAuth);  
-  const token = useUserStore(); 
-  
+  const token = localStorage.getItem('token');
 
   if(!routeRequiresAuth){
     next();
   }
-  if(!token.getToken){
-    console.log("entro alv ");
+  if(!token){
     next({name:'LogIn'});
   }else{
+    console.log("Should render")
     next();
   }
   

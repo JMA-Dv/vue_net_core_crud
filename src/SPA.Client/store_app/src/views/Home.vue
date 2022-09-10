@@ -15,7 +15,7 @@ export default {
   setup(){
     const store = useUserStore()
     console.log("Rendering home-.-.....");
-    return store;
+    return {store};
     
   }
 }
