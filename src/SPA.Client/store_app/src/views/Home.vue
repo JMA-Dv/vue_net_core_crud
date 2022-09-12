@@ -8,13 +8,14 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-import {useUserStore} from '@/store/UserStore';
+
+import { useStore } from 'vuex';
+
 
 export default {
   name: 'Home',
   setup(){
-    const store = useUserStore()
-    console.log("Rendering home-.-.....");
+    const store = useStore()
     return {store};
     
   }

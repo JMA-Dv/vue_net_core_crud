@@ -1,13 +1,12 @@
 import { notify } from "@kyvg/vue3-notification";
 import axios from "axios";
-import { useUserStore } from '../store/UserStore'
 import ErrorService from "./ErrorService";
-
+import store from '../store/store'
 axios.defaults.headers.common.Accept = 'application/json';
 
 export const useApi = () => {
-    const userStore = useUserStore();
-    const url = userStore.getUrl
+    
+    const url = store.getters.getUrl
 
     const signUp = async (params) => {
         const fullUrl = url + 'api/user/signUp';
@@ -27,7 +26,8 @@ export const useApi = () => {
         try {
             const res = await axios.post(url + 'api/user/login', { email, password });
             if (res) {
-                userStore.setUserToken(res.data);
+                store.dispatch("processToken",res.data);
+                store.commit("setIsLogged",true);
                 notify("Welcome");
                 return true;
             }

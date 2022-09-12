@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-fullheight" :class="{'is-primary': isLogged===true, 'is-light':isLogged === false}">
+  <section class="hero is-fullheight" :class="{'is-primary': isLogged, 'is-light':!isLogged}">
 
     <Header v-if="isLogged"></Header>
     <div class="hero-body">
@@ -15,27 +15,28 @@
 <script>
 import Header from './components/shared/Header.vue';
 import Footer from './components/shared/Footer.vue';
-import { onBeforeMount, ref } from 'vue';
-import { useUserStore } from './store/UserStore';
+import {  onMounted, ref } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 export default {
   components: {
     Header,
     Footer,
   },
   setup() {
-    const userStore = useUserStore();
+    const userStore = useStore();
     const hasConfig = ref(true);
     const isLogged = ref(false)
 
 
-    onBeforeMount(async () => {
-      console.log("Entroi en mounted",userStore.getIsLogged)
+    onMounted(async () => {
+      console.log("Entroi en mounted",userStore.getters.getToken)
       if(!userStore.apiUrl){
         const response = await axios.get('/config')
+        console.log("🚀 ~ file: App.vue ~ line 36 ~ onBeforeMount ~ response", response)
         if (response.data) hasConfig.value = true;
   
-        hasConfig.value && userStore.setConfig(response.data.apiUrl);
+        hasConfig.value && userStore.dispatch("urlConfig",response.data.apiUrl);
       }else{
         hasConfig.value = true;
       }

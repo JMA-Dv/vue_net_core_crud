@@ -39,15 +39,14 @@
 
 <script>
 import { useRouter } from 'vue-router';
-import { useUserStore } from '../../store/UserStore';
-
+import { useStore } from 'vuex';
 export default {
 setup(){
   const router = useRouter();
-  const user = useUserStore()
+  const user = useStore()
   const signOut =async ()=>{
     localStorage.removeItem('token');
-    console.log(user.getIsLogged)
+    console.log(user.getters.getToken)
     await router.push({path:'logIn'})
 
   }
