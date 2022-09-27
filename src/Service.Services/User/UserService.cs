@@ -1,11 +1,18 @@
-﻿using Core.DTOs.User;
+﻿using AutoMapper;
+using Core.DTOs.Identity;
+using Core.DTOs.User;
 using Core.Model.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Persistence.Data;
+using Service.Services.Common.Extensions;
 using Service.Services.Common.Helpers;
+using Service.Services.Common.Pagination;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +24,21 @@ namespace Service.Services.User
         Task SignUpAsync(UserSignUpDto model);
         Task<ApplicationUser> LogInAsync(UserLogInDto model);
         Task<string> GenerateTokenAsync(ApplicationUser user, string key);
+        Task<PaginatedList<ApplicationUserDto>> GetUserPaginated(int page,int take);
     }
     public class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, AppDbContext context, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
+            _mapper = mapper;
         }
 
         public async Task<string> GenerateTokenAsync(ApplicationUser user,string key)
@@ -60,6 +72,13 @@ namespace Service.Services.User
 
             return tokenHandler.WriteToken(createdToken);
         }
+
+        public async Task<PaginatedList<ApplicationUserDto>> GetUserPaginated(int page, int take)
+        {
+            return _mapper.Map<PaginatedList<ApplicationUserDto>>(
+                await _context.Users.OrderByDescending(x=> x.Id)
+                .AsQueryable().PagedAsync(page,take));
+        } 
 
         public async Task<ApplicationUser> LogInAsync(UserLogInDto model)
         {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.DTOs.Client;
+using Core.DTOs.Identity;
 using Core.DTOs.Orders;
 using Core.DTOs.Products;
 using Core.DTOs.User;
@@ -35,6 +36,15 @@ namespace Core.Api.Config
             CreateMap<PaginatedList<Product>,PaginatedList<ProductDto>>();
             CreateMap<ProductCreateDto, Product>();
             CreateMap<Product, ProductDto>();
+
+
+            CreateMap<PaginatedList<ApplicationUser>, PaginatedList<ApplicationUserDto>>();
+            
+            CreateMap<ApplicationUser, ApplicationUserDto>();
+            CreateMap<ApplicationUserRole, ApplicationUserRoleDto>();
+            CreateMap<ApplicationRoleDto, ApplicationRole>();
+
+
         }
     }
 }

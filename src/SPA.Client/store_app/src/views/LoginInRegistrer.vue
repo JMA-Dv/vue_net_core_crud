@@ -1,7 +1,6 @@
 <template>
   <div class="columns is-centered">
     <div class="column is-7">
-
       <div class="box">
         <div class="tabs is-boxed">
           <ul>
@@ -85,25 +84,31 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useApi } from '../services/useApi';
-
+import { useStore } from 'vuex';
 export default {
-  
-  setup() {
+  name:'Login',
+  emits:['is-logged'],
+  setup(props,{emit}) {
     const errorMessage = ref({ type: '', error: '' });
     const tab = ref('login');
     const CREDENTIALS_ERROR = "The credentials are not correct"
     const api = useApi();
     const isLoading = ref(false);
     const useRoute = useRouter()
+    const store = useStore();
 
     const user = ref({
       email: '',
       firstName: '',
       lastName: '',
       password: ''
+    })
+
+    onMounted(()=>{
+      console.log("Entro login")
     })
 
     const processForm = () => {
@@ -144,6 +149,9 @@ export default {
 
       if (response) {
         console.log("Entro")
+        store.commit("setIsLogged",true);
+
+        emit('is-logged');
         await useRoute.push('/')
       }
     }
