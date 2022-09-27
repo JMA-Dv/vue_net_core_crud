@@ -20,7 +20,7 @@ namespace Core.Api.Controllers
        
 
         public ProductController(IProductService productService)
-        {
+        { 
             _productService = productService;
         }
 

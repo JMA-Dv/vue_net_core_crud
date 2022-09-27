@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 <p>........................</p>
-    
+    {{store.getters.getUser}}
   </div>
 </template>
 

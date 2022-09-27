@@ -1394,6 +1394,9 @@
         }
       },
       "Core.DTOs/1.0.0": {
+        "dependencies": {
+          "Core.Model": "1.0.0"
+        },
         "runtime": {
           "Core.DTOs.dll": {}
         }

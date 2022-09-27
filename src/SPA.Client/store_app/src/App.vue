@@ -1,7 +1,7 @@
 <template>
-  <section class="hero is-fullheight" :class="{'is-primary': isLogged, 'is-light':!isLogged}">
+  <section class="hero  is-dark is-fullheight" >
 
-    <Header v-if="isLogged"></Header>
+    <Header ></Header>
     <div class="hero-body">
       <div class="container">
 
@@ -28,24 +28,17 @@ export default {
     const hasConfig = ref(true);
     const isLogged = ref(false)
 
-
     onMounted(async () => {
-      console.log("Entroi en mounted",userStore.getters.getToken)
-      if(!userStore.apiUrl){
+      if (!userStore.apiUrl) {
         const response = await axios.get('/config')
-        console.log("🚀 ~ file: App.vue ~ line 36 ~ onBeforeMount ~ response", response)
         if (response.data) hasConfig.value = true;
-  
-        hasConfig.value && userStore.dispatch("urlConfig",response.data.apiUrl);
-      }else{
+
+        hasConfig.value && userStore.dispatch("urlConfig", response.data.apiUrl);
+      } else {
         hasConfig.value = true;
       }
-      isLogged.value = userStore.getIsLogged
-       
     });
-    
-    
-    return { hasConfig,isLogged }
+    return { hasConfig, isLogged }
   }
 }
 </script>

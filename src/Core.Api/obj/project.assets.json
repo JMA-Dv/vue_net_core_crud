@@ -1919,6 +1919,9 @@
       "Core.DTOs/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Core.Model": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Core.DTOs.dll": {}
         },
@@ -6812,7 +6815,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.411\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.412\\RuntimeIdentifierGraph.json"
       }
     }
   }
