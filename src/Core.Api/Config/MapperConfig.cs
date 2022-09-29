@@ -37,14 +37,13 @@ namespace Core.Api.Config
 
             //CreateMap<ApplicationUser, ApplicationUserDto>();
             CreateMap<ApplicationUser, ApplicationUserDto>()
-                .ForMember(x => x.FullName,
+                .ForMember(x => x.UserName,
                 opt => opt.MapFrom(src => src.LastName + ", " + src.FirstName))
                 .ForMember(x => x.Roles, p => p.MapFrom(src => src.UserRoles.Select(x => x.Role.Name).ToList()));
             CreateMap<PaginatedList<ApplicationUser>, PaginatedList<ApplicationUserDto>>();
 
-            CreateMap<IdentityUser, ApplicationUserDto>().ForMember(
-                to=> to.FullName,
-                from=> from.MapFrom(src=> src.UserName)).ForMember(to=> to.Roles, from=> from.MapFrom(src=> src.Rol));
+            CreateMap<IdentityUser, ApplicationUserDto>();
+                
             CreateMap<PaginatedList<IdentityUser>, PaginatedList<ApplicationUserDto>>();
 
             //CreateMap<ApplicationUserRole, ApplicationUserRoleDto>();

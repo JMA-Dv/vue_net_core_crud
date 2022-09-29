@@ -1,36 +1,33 @@
 <template>
-    <nav class="pagination" role="navigation" aria-label="pagination">
+    <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
         <a class="pagination-previous">Previous</a>
         <a class="pagination-next">Next page</a>
         <ul class="pagination-list">
-            <li>
-                <a class="pagination-link" aria-label="Goto page 1">1</a>
-            </li>
-            <li>
-                <span class="pagination-ellipsis">&hellip;</span>
-            </li>
-            <li>
-                <a class="pagination-link" aria-label="Goto page 45">45</a>
-            </li>
-            <li>
-                <a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a>
-            </li>
-            <li>
-                <a class="pagination-link" aria-label="Goto page 47">47</a>
-            </li>
-            <li>
-                <span class="pagination-ellipsis">&hellip;</span>
-            </li>
-            <li>
-                <a class="pagination-link" aria-label="Goto page 86">86</a>
-            </li>
+            <li v-for="index in pages" :key="index"><a class="pagination-link" @click="paging(index)"
+                    :class="{'is-current': index === page}">{{index}}</a></li>
         </ul>
     </nav>
 </template>
 
 <script>
 export default {
+    props: {
+        page: {
+            type: Number,
+            required: true
+        },
+        pages: {
+            type: Number,
+            required: true
+        },
+        paging: {
+            type: Function,
+            required: true
+        }
+    },
+    setup() {
 
+    }
 }
 </script>
 

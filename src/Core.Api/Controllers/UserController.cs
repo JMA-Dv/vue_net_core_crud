@@ -21,11 +21,11 @@ namespace Core.Api.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IList<IdentityUser>>> GetAll(int page, int take) => 
-            await _userService.GetUserPaginated(page, take);
+        //[HttpGet]
+        //public async Task<ActionResult<IList<IdentityUser>>> GetAll(int page, int take) => 
+        //    await _userService.GetUserPaginated(page, take);
 
-        [HttpGet("all")]
+        [HttpGet()]
         public async Task<ActionResult<PaginatedList<ApplicationUserDto>>> GetPaginated(int page, int take) =>
             await _userService.GetAll(page, take);
 

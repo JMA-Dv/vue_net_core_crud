@@ -9,14 +9,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(item,index) in users.data " :key="index">
+      <tr v-for="(item,index) in users.data.items " :key="index">
         <td>{{item.userName}}</td>
         <td>{{item.email}}</td>
         <td>{{item.role}}</td>
       </tr>
     </tbody>
   </table>
-  <Pagination></Pagination>
+  <Pagination :paging="p=> paging(p)" :page="users.data.page" :pages="users.data.pages"></Pagination>
 </template>
 
 <script>
@@ -32,14 +32,23 @@ export default {
     const getUsers = async (page) => {
       return await useUser.getAll(page, 1);
     };
+
     onMounted(async () => {
       users.value = await getUsers(page.value);
       console.log("🚀 ~ file: User.vue ~ line 37 ~ onMounted ~ users", users.value);
     });
+
+    const paging = async (page) => {
+      if (page === users.value.data.page)
+        return;
+
+      users.value = await getUsers(page);
+
+    }
     const inf = ref([
       { name: "Dault", mail: "def@email.com", role: "Vendor", }
     ]);
-    return { inf, users };
+    return { inf, users, paging };
   },
   components: { Pagination }
 }
