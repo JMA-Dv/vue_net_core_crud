@@ -43,7 +43,6 @@ export default {
         return;
 
       users.value = await getUsers(page);
-
     }
     const inf = ref([
       { name: "Dault", mail: "def@email.com", role: "Vendor", }

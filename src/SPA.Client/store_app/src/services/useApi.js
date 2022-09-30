@@ -8,6 +8,7 @@ axios.interceptors.request.use(
         let token = localStorage.getItem('token')
         if (token) {
             config.headers.Authorization = `Bearer ${JSON.parse(token)}`;
+            // config.baseURL = localStorage.getItem('config')
         }
         return config;
     },
