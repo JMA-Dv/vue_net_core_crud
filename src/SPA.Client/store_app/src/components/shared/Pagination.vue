@@ -1,12 +1,15 @@
 <template>
-    <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
-        <a class="pagination-previous">Previous</a>
-        <a class="pagination-next">Next page</a>
-        <ul class="pagination-list">
-            <li v-for="index in pages" :key="index"><a class="pagination-link" @click="paging(index)"
-                    :class="{'is-current': index === page}">{{index}}</a></li>
-        </ul>
-    </nav>
+    <div class="my-2">
+
+        <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+            <a class="pagination-previous">Previous</a>
+            <a class="pagination-next">Next page</a>
+            <ul class="pagination-list">
+                <li v-for="index in pages" :key="index"><a class="pagination-link" @click="paging(index)"
+                        :class="{'is-current': index === page}">{{index}}</a></li>
+            </ul>
+        </nav>
+    </div>
 </template>
 
 <script>

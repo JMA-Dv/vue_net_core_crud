@@ -42,6 +42,16 @@ namespace Core.Api.Controllers
             return Ok();
         }
 
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProduct(int id)
+        {
+
+            await _productService.Delete(id);
+            return Ok();
+        }
+
         [HttpGet]
         public async Task<ActionResult<PaginatedList<ProductDto>>> GetAllPaginatedAsync(int page, int take)
             => await _productService.GetAllPaginated(page, take);

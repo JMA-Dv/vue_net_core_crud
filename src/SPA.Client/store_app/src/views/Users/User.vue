@@ -44,10 +44,7 @@ export default {
 
       users.value = await getUsers(page);
     }
-    const inf = ref([
-      { name: "Dault", mail: "def@email.com", role: "Vendor", }
-    ]);
-    return { inf, users, paging };
+    return { users, paging };
   },
   components: { Pagination }
 }

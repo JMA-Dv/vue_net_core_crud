@@ -33,6 +33,7 @@
                 <button class="button is-link" @click="logIn">Log In</button>
               </div>
             </div>
+            <SpinLoader v-if="isLoading"></SpinLoader>
           </form>
         </Transition>
         <Transition name="slide-fade">
@@ -74,6 +75,7 @@
                 <button class="button is-link" :disabled="loading" @click="signUp">Sign Up</button>
               </div>
             </div>
+            <spin-loader v-if="isLoading"></spin-loader>
           </form>
         </Transition>
 
@@ -88,76 +90,67 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useApi } from '../services/useApi';
 import { useStore } from 'vuex';
+import SpinLoader from '../components/shared/SpinLoader.vue';
 export default {
-  name:'Login',
-  emits:['is-logged'],
-  setup(props,{emit}) {
-    const errorMessage = ref({ type: '', error: '' });
-    const tab = ref('login');
-    const CREDENTIALS_ERROR = "The credentials are not correct"
+  name: "Login",
+  emits: ["is-logged"],
+  setup(props, { emit }) {
+    const errorMessage = ref({ type: "", error: "" });
+    const tab = ref("login");
+    const CREDENTIALS_ERROR = "The credentials are not correct";
     const api = useApi();
     const isLoading = ref(false);
-    const useRoute = useRouter()
+    const useRoute = useRouter();
     const store = useStore();
-
     const user = ref({
-      email: '',
-      firstName: '',
-      lastName: '',
-      password: ''
-    })
-
-    onMounted(()=>{
-      console.log("Entro login")
-    })
-
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: ""
+    });
+    onMounted(() => {
+      console.log("Entro login");
+    });
     const processForm = () => {
       if (!user.value.email.trim()) {
         errorMessage.value.type = "EMAIL";
         errorMessage.value.error = CREDENTIALS_ERROR;
         return;
       }
-
       if (!user.value.password || user.value.password.length < 6) {
         errorMessage.value.type = "PASSWORD";
         errorMessage.value.error = CREDENTIALS_ERROR;
       }
-
-      if (tab.value === 'register') {
+      if (tab.value === "register") {
         if (!user.value.firstName.trim()) {
           errorMessage.value = "FIRST_EMAIL";
           return;
         }
-
         if (!user.value.lastName.trim()) {
           errorMessage.value = "LAST_EMAIL";
           return;
         }
       }
-    }
-
+    };
     const signUp = async () => {
       isLoading.value = true;
       await api.signUp(user.value);
       isLoading.value = false;
-    }
-
+    };
     const logIn = async () => {
       isLoading.value = true;
       var response = await api.logIn(user.value);
       isLoading.value = false;
-
       if (response) {
-        console.log("Entro")
-        store.commit("setIsLogged",true);
-
-        emit('is-logged');
-        await useRoute.push('/')
+        console.log("Entro");
+        store.commit("setIsLogged", true);
+        emit("is-logged");
+        await useRoute.push("/");
       }
-    }
-
-    return { processForm, user, errorMessage, tab, signUp, logIn, isLoading }
-  }
+    };
+    return { processForm, user, errorMessage, tab, signUp, logIn, isLoading };
+  },
+  components: { SpinLoader }
 }
 </script>
 <style>

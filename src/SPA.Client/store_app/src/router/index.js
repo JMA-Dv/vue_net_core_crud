@@ -17,7 +17,8 @@ const routes = [
     path: '/clients',
     name: 'Clients',
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      hasAccess: ["Admin"]
     },
     component: () => import(/* webpackChunkName: "about" */ '../views/clients/Client.vue')
   },
@@ -34,6 +35,12 @@ const routes = [
   {
     path: '/products/create',
     name: 'ProductsCreate',
+
+    component: () => import(/* webpackChunkName: "about" */ '../views/products/CreateOrUpdate.vue')
+  },
+  {
+    path: '/products/edit/:id',
+    name: 'ProductUpdate',
 
     component: () => import(/* webpackChunkName: "about" */ '../views/products/CreateOrUpdate.vue')
   },

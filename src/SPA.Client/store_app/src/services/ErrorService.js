@@ -8,17 +8,16 @@ export default class ErrorService {
     console.log("🚀 ~ file: ErrorService.js ~ line 7 ~ ErrorService ~ onError ~ error", error)
 
     const response = error.response;
+
     if (response && response.status >= 400 && response.status < 405) {
       // You can handle this differently
       ErrorService.sentryLogEngine(error.message);
       return false;
     }
-    
-    if (response && response.status === 500 ) {
-      console.log("🚀 ~ file: ErrorService.js ~ line 18 ~ ErrorService ~ onError ~ response", response)
+
+    if (response && response.status === 500) {
       // You can handle this differently
       ErrorService.logRocketLogEngine(error.message);
-      console.log("entro")
       return false;
     }
 
@@ -62,7 +61,7 @@ export default class ErrorService {
     notify({
       title: "Error",
       text: message,
-      type:'error'
+      type: 'error'
     })
   }
 
@@ -70,7 +69,7 @@ export default class ErrorService {
     notify({
       title: "Warning",
       text: message,
-      type:'warning'
+      type: 'warning'
     })
   }
 
