@@ -1,0 +1,13 @@
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\bin\Debug\netcoreapp3.1\Core.DTOs.deps.json
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\bin\Debug\netcoreapp3.1\Core.DTOs.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\bin\Debug\netcoreapp3.1\Core.DTOs.pdb
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.csproj.AssemblyReference.cache
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.AssemblyInfoInputs.cache
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.AssemblyInfo.cs
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.csproj.CoreCompileInputs.cache
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.pdb
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\bin\Debug\netcoreapp3.1\Core.Model.dll
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\bin\Debug\netcoreapp3.1\Core.Model.pdb
+C:\Users\PC\source\repos\Vue.dotnet\src\Core.DTOs\obj\Debug\netcoreapp3.1\Core.DTOs.csproj.CopyComplete
